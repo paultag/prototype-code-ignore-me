@@ -1,5 +1,9 @@
 import requests
+import os
+
 OPENSTATES_BASE = "http://openstates.org/api/v1"
+API_KEY = open(
+    os.path.abspath(os.path.expanduser("~/.sunlight.key")), 'r').read().strip()
 
 
 def create_url(method, *args, **kwargs):
@@ -14,7 +18,7 @@ def create_url(method, *args, **kwargs):
 def request_data(method, *args, **kwargs):
     url = create_url(method, *args, **kwargs)
     params = kwargs.copy()
-    params.update({"apikey": "APIKEY",})
+    params.update({"apikey": API_KEY,})
     print url, params
     return requests.get(url, params=params).json()
 
